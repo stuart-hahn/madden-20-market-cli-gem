@@ -1,0 +1,6 @@
+#!bin/usr/env ruby
+
+require "bundler/setup"
+require "madden_20_market_prices"
+
+Madden20MarketPrices::CLI.new.call
