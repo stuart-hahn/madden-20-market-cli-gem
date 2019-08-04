@@ -38,10 +38,21 @@ class Madden20MarketPrices::CLI
 
             player = Madden20MarketPrices::Player.find(input.to_i)
 
-            print_player(player)
+            print_player(player, "gainer")
 
         elsif input == "2"
-            puts "You chose Market Losers. Let's scrape the page!"
+            puts "Here are the top 15 Market Losers:"
+            puts ""
+            print_losers
+
+            puts ""
+            puts "Which player would you like to know more about?"
+            input = gets.strip
+
+            player = Madden20MarketPrices::Player.find(input.to_i)
+
+            print_player(player, "loser")
+
         elsif input == "exit"
             puts "Womp womp."
         else
@@ -55,7 +66,12 @@ class Madden20MarketPrices::CLI
         Madden20MarketPrices::Player.all.each.with_index { |player, index| puts "#{index + 1}. #{player.name}"}
     end
 
-    def print_player(player)
+    def print_losers
+        Madden20MarketPrices::MarketScraper.new.make_losers
+        Madden20MarketPrices::Player.all.each.with_index { |player, index| puts "#{index + 1}. #{player.name}"}
+    end
+
+    def print_player(player, type)
         puts ""
         puts "---Basic Information---"
         puts "Player name: #{player.name}"
@@ -64,7 +80,15 @@ class Madden20MarketPrices::CLI
         puts ""
         puts "---Price Information---"
         puts "Current cost: #{player.cost}"
-        puts "That's up #{player.gain} from yesterday! Sell sell sell!"
+        if type == "gainer"
+            puts "That's up #{player.price_change_percent} from yesterday! Sell sell sell!"
+        elsif type == "loser"
+            if "#{player.price_change_percent}" != "None --"
+                puts "That's down #{player.price_change_percent} from yesterday. Ouch."
+            else
+                puts "This item is too new for accurate price change information."
+            end
+        end
         puts ""
     end
 

@@ -16,4 +16,14 @@ class Madden20MarketPrices::MarketScraper
         end
     end
 
+    def scrape_losers
+        self.get_prices_page.css("div.price-lists > div.price-lists__losers > article > ul > li")
+    end
+
+    def make_losers
+        self.scrape_losers.each do |player|
+            Madden20MarketPrices::Player.new_from_prices_page(player)
+        end
+    end
+
 end

@@ -1,14 +1,14 @@
 class Madden20MarketPrices::Player
 
-    attr_accessor :name, :info, :cost, :gain, :ovr
+    attr_accessor :name, :info, :cost, :price_change_percent, :ovr
 
     @@all = []
 
-    def initialize(name = nil, info = nil, cost = nil, gain = nil, ovr = nil)
+    def initialize(name = nil, info = nil, cost = nil, price_change_percent = nil, ovr = nil)
         @name = name
         @info = info
         @cost = cost
-        @gain = gain
+        @price_change_percent = price_change_percent
         @ovr = ovr
         @@all << self
     end
@@ -18,7 +18,7 @@ class Madden20MarketPrices::Player
             player.css("div.list-info-player__player-name").text.strip,
             player.css("div.list-info-player__player-info").text.strip,
             player.css("div.cost-summary__price").text.strip,
-            player.css("div.cost-summary__effect--gain").text.strip,
+            player.css("div.cost-summary__effect").text.strip,
             player.css("span.list-info-player__ovr-value").text.strip
         )
     end
