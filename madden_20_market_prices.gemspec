@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["stuart-hahn"]
   spec.email         = ["stuart.a.hahn@gmail.com"]
 
-  spec.summary       = "This gem gets current Madden Ultimate Team prices from muthead.com"
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "This gem gets current Madden Ultimate Team item prices from muthead.com"
+  spec.homepage      = "https://github.com/stuart-hahn/madden-20-market-cli-gem"
   spec.license       = "MIT"
 
   # Specify which files should be added to the gem when it is released.
@@ -25,4 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "pry"
+  spec.add_development_dependency "nokogiri"
 end
