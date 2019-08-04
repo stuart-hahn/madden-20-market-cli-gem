@@ -26,4 +26,34 @@ class Madden20MarketPrices::MarketScraper
         end
     end
 
+    def scrape_trainers
+        self.get_prices_page.css("div.price-lists > div.price-lists__training > article > ul > li")
+    end
+
+    def make_trainers
+        self.scrape_trainers.each do |player|
+            Madden20MarketPrices::Player.new_from_prices_page(player)
+        end
+    end
+
+    def scrape_expensive
+        self.get_prices_page.css("div.price-lists > div.price-lists__expensive > article > ul > li")
+    end
+
+    def make_expensive
+        self.scrape_expensive.each do |player|
+            Madden20MarketPrices::Player.new_from_prices_page(player)
+        end
+    end
+
+    def scrape_snipes
+        self.get_prices_page.css("div.price-lists > div.price-lists__snipes > article > ul > li")
+    end
+
+    def make_snipes
+        self.scrape_snipes.each do |player|
+            Madden20MarketPrices::Player.new_from_prices_page(player)
+        end
+    end
+
 end

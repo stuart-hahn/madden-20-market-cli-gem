@@ -31,4 +31,8 @@ class Madden20MarketPrices::Player
         self.all[index - 1]
     end
 
+    def self.reset!
+        self.all.clear
+    end
+
 end
