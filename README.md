@@ -1,8 +1,6 @@
-# Madden20MarketPrices
+# Madden 20 Market Prices
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/madden_20_market_prices`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This Ruby Gem scrapes https://www.muthead.com/prices/xbox-one/ to provide users with up-to-date Auction House information about players in Madden Ultimate Team on the XBOX ONE.
 
 ## Installation
 
@@ -22,7 +20,11 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Type the following:
+
+    $ madden-20-market-prices
+    
+And then follow the on-screen prompts.
 
 ## Development
 
