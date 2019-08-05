@@ -1,14 +1,15 @@
 class Madden20MarketPrices::CLI
 
-    # Welcome Message and initial list of choices.
+    # Greet user with a welcome message.
 
     def call
-        puts ""
-        puts "Welcome to Muthead's Prices Tool."
+        puts "\nWelcome to Muthead's Prices Tool."
         puts ""
         puts "What type of information are you looking for?"
         list_choices
     end
+
+    # Provide some initial direction.
 
     def list_choices
         puts <<~DOC
@@ -24,46 +25,43 @@ class Madden20MarketPrices::CLI
       make_choice
     end
 
+    # Ask user for input and scrape Muthead for relevant data.
+
     def make_choice
         puts "Select a number:"
         input = gets.strip.downcase
         puts ""
 
         if input == "1"
-            puts "Here are the top 15 Market Gainers:"
-            puts ""
+            puts "Here are the top 15 Market Gainers:\n"
             print_gainers
             which_player
 
             print_player(@player, "gainer")
 
         elsif input == "2"
-            puts "Here are the top 15 Market Losers:"
-            puts ""
+            puts "Here are the top 15 Market Losers:\n"
             print_losers
             which_player
 
             print_player(@player, "loser")
 
         elsif input == "3"
-            puts "These are the players with the best Training Points/Coins Ratio:"
-            puts ""
+            puts "These are the players with the best Training Points/Coins Ratio:\n"
             print_trainers
             which_player
 
             print_player(@player, "training")
 
         elsif input == "4"
-            puts "These are the Most Expensive Players currently on the Auction House:"
-            puts ""
+            puts "These are the Most Expensive Players currently on the Auction House:\n"
             print_expensive
             which_player
 
             print_player(@player, "expensive")
 
         elsif input == "5"
-            puts "Recent Auction House Snipes:"
-            puts ""
+            puts "Recent Auction House Snipes:\n"
             print_snipes
             which_player
 
@@ -77,9 +75,13 @@ class Madden20MarketPrices::CLI
         end
     end
 
+    # Print a numbered list of names
+
     def print
         Madden20MarketPrices::Player.all.each.with_index { |player, index| puts "#{index + 1}. #{player.name}"}
     end
+
+    # Use the MarketScraper class to scrape Muthead and create Player objects.
 
     def print_gainers
         Madden20MarketPrices::MarketScraper.new.make_gainers
@@ -136,20 +138,22 @@ class Madden20MarketPrices::CLI
     end
 
     def which_player
-        puts ""
-        puts "Which player would you like to know more about?"
+        puts "\nWhich player would you like to know more about?"
         input = gets.strip
 
-        @player = Madden20MarketPrices::Player.find(input.to_i)
+        if input.to_i.between?(1, Madden20MarketPrices::Player.all.length)
+            @player = Madden20MarketPrices::Player.find(input.to_i)
+        else
+            puts "You must type the number that corresponds with your selection."
+            which_player
+        end
     end
 
     def basic_info
-        puts ""
-        puts "---Basic Information---"
+        puts "\n---Basic Information---"
         puts "Player name: #{@player.name}"
         puts "Position and item type: #{@player.info}"
-        puts "Overall: #{@player.ovr}"
-        puts ""
+        puts "Overall: #{@player.ovr}\n"
     end
 
     def price_info
@@ -166,8 +170,7 @@ class Madden20MarketPrices::CLI
         elsif input.downcase == "n" || input.downcase == "no"
             puts "See you later!"
         else
-            puts ""
-            puts "You must type 'yes' to see more players or type 'no' to exit."
+            puts "\nYou must type 'yes' to see more players or type 'no' to exit."
             continue
         end
     end
