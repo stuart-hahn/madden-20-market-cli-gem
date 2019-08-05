@@ -1,5 +1,7 @@
 class Madden20MarketPrices::CLI
 
+    # Welcome Message and initial list of choices.
+
     def call
         puts ""
         puts "Welcome to Muthead's Prices Tool."
