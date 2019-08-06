@@ -32,48 +32,63 @@ class Madden20MarketPrices::CLI
         input = gets.strip.downcase
         puts ""
 
-        if input == "1"
-            puts "Here are the top 15 Market Gainers:\n"
+        case input
+        when "1"
             print_gainers
             which_player
-
             print_player(@player, "gainer")
-
-        elsif input == "2"
-            puts "Here are the top 15 Market Losers:\n"
+        when "2"
             print_losers
             which_player
-
             print_player(@player, "loser")
-
-        elsif input == "3"
-            puts "These are the players with the best Training Points/Coins Ratio:\n"
-            print_trainers
-            which_player
-
-            print_player(@player, "training")
-
-        elsif input == "4"
-            puts "These are the Most Expensive Players currently on the Auction House:\n"
-            print_expensive
-            which_player
-
-            print_player(@player, "expensive")
-
-        elsif input == "5"
-            puts "Recent Auction House Snipes:\n"
-            print_snipes
-            which_player
-
-            print_player(@player, "snipe")
-
-        elsif input == "exit"
-            puts "Womp womp."
         else
             puts "You must choose a number or type 'exit'."
             make_choice
         end
     end
+
+    #     if input == "1"
+    #         puts "Here are the top 15 Market Gainers:\n"
+    #         print_gainers
+    #         which_player
+
+    #         print_player(@player, "gainer")
+
+    #     elsif input == "2"
+    #         puts "Here are the top 15 Market Losers:\n"
+    #         print_losers
+    #         which_player
+
+    #         print_player(@player, "loser")
+
+    #     elsif input == "3"
+    #         puts "These are the players with the best Training Points/Coins Ratio:\n"
+    #         print_trainers
+    #         which_player
+
+    #         print_player(@player, "training")
+
+    #     elsif input == "4"
+    #         puts "These are the Most Expensive Players currently on the Auction House:\n"
+    #         print_expensive
+    #         which_player
+
+    #         print_player(@player, "expensive")
+
+    #     elsif input == "5"
+    #         puts "Recent Auction House Snipes:\n"
+    #         print_snipes
+    #         which_player
+
+    #         print_player(@player, "snipe")
+
+    #     elsif input == "exit"
+    #         puts "Womp womp."
+    #     else
+    #         puts "You must choose a number or type 'exit'."
+    #         make_choice
+    #     end
+    # end
 
     # Print a numbered list of names
 
@@ -84,11 +99,13 @@ class Madden20MarketPrices::CLI
     # Use the MarketScraper class to scrape Muthead and create Player objects.
 
     def print_gainers
+        puts "Here are the top 15 Market Gainers:\n"
         Madden20MarketPrices::MarketScraper.new.make_gainers
         print
     end
 
     def print_losers
+        puts "Here are the top 15 Market Losers:\n"
         Madden20MarketPrices::MarketScraper.new.make_losers
         print
     end
@@ -157,7 +174,7 @@ class Madden20MarketPrices::CLI
     end
 
     def price_info
-        puts "---Price Information---"
+        puts "\n---Price Information---"
         puts "Current cost: #{@player.cost}"
     end
 
