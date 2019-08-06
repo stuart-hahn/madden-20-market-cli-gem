@@ -4,8 +4,7 @@ class Madden20MarketPrices::CLI
 
     def call
         puts "\nWelcome to Muthead's Prices Tool."
-        puts ""
-        puts "What type of information are you looking for?"
+        puts "\nWhat type of information are you looking for?"
         list_choices
     end
 
@@ -25,7 +24,7 @@ class Madden20MarketPrices::CLI
       make_choice
     end
 
-    # Ask user for input and scrape Muthead for relevant data.
+    # Ask user for input, scrape Muthead for relevant data, print the list of requested players.
 
     def make_choice
         puts "Select a number:"
@@ -100,6 +99,8 @@ class Madden20MarketPrices::CLI
         print
     end
 
+    # Reveal information about a particular player object, including name, position, OVR, and relevant pricing data.
+
     def print_player(player, type)
         basic_info
         case type
@@ -142,6 +143,7 @@ class Madden20MarketPrices::CLI
         end
     end
 
+    # 'Puts' out basic information about a player object
     def basic_info
         puts "\n---Basic Information---"
         puts "Player name: #{@player.name}"
@@ -149,11 +151,15 @@ class Madden20MarketPrices::CLI
         puts "Overall: #{@player.ovr}\n"
     end
 
+    # 'Puts' out the pricing information about a player object
     def price_info
         puts "\n---Price Information---"
         puts "Current cost: #{@player.cost}"
     end
 
+    # Ask the user if they'd like to continue and restart the program.
+    # This includes refreshing pricing information so that every time someone refreshes the list they are 
+    # getting the latest information.
     def continue
         puts "Would you like to view more players? Please type 'yes' or 'no'."
         input = gets.strip
