@@ -22,7 +22,7 @@ Or install it yourself as:
 
 Type the following:
 
-    $ madden-20-market-prices
+    $ madden_20_market_prices
     
 And then follow the on-screen prompts.
 
