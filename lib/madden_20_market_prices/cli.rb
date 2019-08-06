@@ -41,114 +41,90 @@ class Madden20MarketPrices::CLI
             print_losers
             which_player
             print_player(@player, "loser")
+        when "3"
+            print_trainers
+            which_player
+            print_player(@player, "trainer")
+        when "4"
+            print_expensive
+            which_player
+            print_player(@player, "expensive")
+        when "5"
+            print_snipes
+            which_player
+            print_player(@player, "snipe")
+        when "exit"
+            puts "Goodbye."
         else
             puts "You must choose a number or type 'exit'."
             make_choice
         end
     end
 
-    #     if input == "1"
-    #         puts "Here are the top 15 Market Gainers:\n"
-    #         print_gainers
-    #         which_player
-
-    #         print_player(@player, "gainer")
-
-    #     elsif input == "2"
-    #         puts "Here are the top 15 Market Losers:\n"
-    #         print_losers
-    #         which_player
-
-    #         print_player(@player, "loser")
-
-    #     elsif input == "3"
-    #         puts "These are the players with the best Training Points/Coins Ratio:\n"
-    #         print_trainers
-    #         which_player
-
-    #         print_player(@player, "training")
-
-    #     elsif input == "4"
-    #         puts "These are the Most Expensive Players currently on the Auction House:\n"
-    #         print_expensive
-    #         which_player
-
-    #         print_player(@player, "expensive")
-
-    #     elsif input == "5"
-    #         puts "Recent Auction House Snipes:\n"
-    #         print_snipes
-    #         which_player
-
-    #         print_player(@player, "snipe")
-
-    #     elsif input == "exit"
-    #         puts "Womp womp."
-    #     else
-    #         puts "You must choose a number or type 'exit'."
-    #         make_choice
-    #     end
-    # end
-
     # Print a numbered list of names
 
     def print
+        puts ""
         Madden20MarketPrices::Player.all.each.with_index { |player, index| puts "#{index + 1}. #{player.name}"}
     end
 
     # Use the MarketScraper class to scrape Muthead and create Player objects.
 
     def print_gainers
-        puts "Here are the top 15 Market Gainers:\n"
+        puts "Here are the top 15 Market Gainers:"
         Madden20MarketPrices::MarketScraper.new.make_gainers
         print
     end
 
     def print_losers
-        puts "Here are the top 15 Market Losers:\n"
+        puts "Here are the top 15 Market Losers:"
         Madden20MarketPrices::MarketScraper.new.make_losers
         print
     end
 
     def print_trainers
+        puts "These are the players with the best Training Points/Coins Ratio:"
         Madden20MarketPrices::MarketScraper.new.make_trainers
         print
     end
 
     def print_expensive
+        puts "These are the Most Expensive Players currently on the Auction House:"
         Madden20MarketPrices::MarketScraper.new.make_expensive
         print
     end
 
     def print_snipes
+        puts "Recent Auction House Snipes:"
         Madden20MarketPrices::MarketScraper.new.make_snipes
         print
     end
 
     def print_player(player, type)
         basic_info
-        if type == "gainer"
+        case type
+        when "gainer"
             price_info
             puts "That's up #{player.price_change_percent} from yesterday! Sell sell sell!"
-        elsif type == "loser"
+        when "loser"
             price_info
             if "#{player.price_change_percent}" != "None --"
                 puts "That's down #{player.price_change_percent} from yesterday. Ouch."
             else
                 puts "This item is too new for accurate price change information."
             end
-        elsif type == "training"
+        when "trainer"
             price_info
             puts "Whoa! This item only costs #{player.price_change_percent} coins per Training Point! Quicksell immediately."
-        elsif type == "expensive"
+        when "expensive"
             price_info
             if "#{player.price_change_percent}" != "--"
                 puts "That's a #{player.price_change_percent} change in price from yesterday."
             else
                 puts "This item is too new for accurate price change information."
             end
-        elsif type == "snipe"
-            puts "Somebody sniped this item for #{player.cost} coins! Are you kidding me?!"
+        when "snipe"
+            puts "\nSomebody sniped this item for #{player.cost} coins! Are you kidding me?!"
         end
         puts ""
         continue
